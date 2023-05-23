@@ -1,0 +1,13 @@
+delete_record_two_min:
+  cron: "2 * * * * *"
+  class: SampleJob
+  queue: recurring_queue
+
+delete_record_one_min:
+  cron: "1 * * * * *"
+  class: ActiveJob::QueueAdapters::ResqueAdapter::JobWrapper
+  queue: recurring_queue
+  args:
+    job_class:  DeleteRecordJob
+    queue_name: recurring_queue
+    arguments: []
